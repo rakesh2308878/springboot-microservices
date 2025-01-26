@@ -8,11 +8,22 @@ spring:
           uri: lb://EMPLOYEE-SERVICE
           predicates:
             - Path=/api/employees/**
+          filters:
+            - name: AuthenticationFilter
+              args:
+                headerName: Authorization
         - id: DEPARTMENT-SERVICE
           uri: lb://DEPARTMENT-SERVICE
           predicates:
             - Path=/api/departments/**
-
+          filters:
+            - name: AuthenticationFilter
+              args:
+                headerName: Authorization
+        - id: AUTH-SERVICE
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/api/auth/**
 server:
   port: 9191
 
@@ -37,4 +48,7 @@ eureka:
   instance:
     hostname: localhost
     prefer-ip-address: true
+
+
+
 
